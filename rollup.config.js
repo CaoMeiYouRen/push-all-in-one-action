@@ -64,7 +64,7 @@ function getPlugins({ isBrowser = false, isMin = false, isDeclaration = false })
 export default [
     {
         input: 'src/index.ts',
-        external,
+        // external,
         output: {
             file: 'dist/index.js', // 生成 cjs
             format: 'cjs',
