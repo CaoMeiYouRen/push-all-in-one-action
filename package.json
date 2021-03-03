@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "description": "基于 push-all-in-one 的 action",
-  "main": "lib/main.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "prebuild": "rimraf dist",
+    "build": "cross-env NODE_ENV=production rollup -c",
     "lint": "cross-env NODE_ENV=production eslint src __tests__ *.js --fix --ext .ts,.js",
     "format": "npm run lint",
     "format-check": "npm run lint",
     "package": "ncc build --source-map --license licenses.txt",
     "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+    "release": "semantic-release",
+    "all": "npm run build && npm run package"
   },
   "repository": {
     "type": "git",
@@ -25,12 +27,19 @@
   "author": "CaoMeiYouRen",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.6"
+    "@actions/core": "^1.2.6",
+    "push-all-in-one": "^1.3.1"
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^3.1.2",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "@rollup/plugin-typescript": "^8.2.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@types/jest": "^26.0.15",
+    "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.9",
     "@typescript-eslint/parser": "^4.8.1",
     "@vercel/ncc": "^0.25.1",
@@ -43,7 +52,11 @@
     "jest": "^26.6.3",
     "jest-circus": "^26.6.3",
     "js-yaml": "^3.14.0",
+    "lodash": "^4.17.21",
     "rimraf": "^3.0.2",
+    "rollup": "^2.40.0",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2",
     "semantic-release": "^17.4.0",
     "ts-jest": "^26.4.4",
     "ts-node": "^9.1.1",
