@@ -1,11 +1,11 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: "Push All In One Action"
+description: "基于 push-all-in-one 的 action"
+author: "CaoMeiYouRen"
 inputs:
   milliseconds: # change this
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: "input description here"
+    default: "default value if applicable"
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node14"
+  main: "dist/index.js"

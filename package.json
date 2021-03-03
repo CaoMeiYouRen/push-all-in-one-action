@@ -1,45 +1,53 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "push-all-in-one-action",
+  "version": "0.1.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "基于 push-all-in-one 的 action",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts",
-    "lint": "eslint src/**/*.ts",
+    "lint": "cross-env NODE_ENV=production eslint src __tests__ *.js --fix --ext .ts,.js",
+    "format": "npm run lint",
+    "format-check": "npm run lint",
     "package": "ncc build --source-map --license licenses.txt",
     "test": "jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/CaoMeiYouRen/push-all-in-one-action.git"
   },
   "keywords": [
     "actions",
     "node",
     "setup"
   ],
-  "author": "",
+  "author": "CaoMeiYouRen",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.6"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.9",
     "@typescript-eslint/parser": "^4.8.1",
     "@vercel/ncc": "^0.25.1",
+    "conventional-changelog-cmyr-config": "^1.2.3",
+    "cross-env": "^7.0.3",
     "eslint": "^7.17.0",
+    "eslint-config-cmyr": "^1.1.7",
     "eslint-plugin-github": "^4.1.1",
     "eslint-plugin-jest": "^24.1.3",
     "jest": "^26.6.3",
     "jest-circus": "^26.6.3",
     "js-yaml": "^3.14.0",
-    "prettier": "2.2.1",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^17.4.0",
     "ts-jest": "^26.4.4",
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.6",
     "typescript": "^4.1.3"
   }
 }
