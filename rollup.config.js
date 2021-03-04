@@ -26,10 +26,10 @@ function getPlugins({ isBrowser = false, isMin = false, isDeclaration = false })
         typescript({
             tsconfig: 'tsconfig.json',
             module: 'esnext',
+            target: 'es2019',
             esModuleInterop: true,
             allowSyntheticDefaultImports: true,
             declaration: isDeclaration,
-            sourceMap: true,
         }),
     )
     plugins.push(alias({
@@ -77,4 +77,19 @@ export default [
             isMin: false,
         }),
     },
+    // {
+    //     input: 'src/index.ts',
+    //     external,
+    //     output: {
+    //         file: 'lib/index.esm.js',
+    //         format: 'esm',
+    //         name: outputName,
+    //         sourcemap: true,
+    //     },
+    //     plugins: getPlugins({
+    //         isBrowser: false,
+    //         isDeclaration: false,
+    //         isMin: false,
+    //     }),
+    // },
 ]
