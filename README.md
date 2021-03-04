@@ -1,6 +1,6 @@
 # push-all-in-one-action
 
-基于 push-all-in-one 的定时推送 action，支持 Server酱、酷推、邮件、钉钉机器人、企业微信机器人、企业微信应用、pushplus、iGot 等多种推送方式。
+基于 [push-all-in-one](https://github.com/CaoMeiYouRen/push-all-in-one) 的定时推送 action，支持 Server酱、酷推、邮件、钉钉机器人、企业微信机器人、企业微信应用、pushplus、iGot 等多种推送方式。
 
 本项目也欢迎二次开发。
 
@@ -8,7 +8,11 @@
 
 ### 方法一：fork 本项目
 
-点击右上角的 `fork` 按钮，然后进入 `Actions` 页面开启 workflows 下的 `Send`，然后请阅读[配置](#配置)一栏
+点击右上角的 `fork` 按钮，然后进入 `Actions` 页面开启`Workflows` 下的  `Send`，然后请阅读[配置](#配置)一栏
+
+>   此处借用了 `BiliExp` 的图片，配置过程是一样的
+
+![](https://cdn.jsdelivr.net/gh/CaoMeiYouRen/image-hosting-01@master/images/20210304232639.png)
 
 ### 方法二：配置 GitHub workflows
 
@@ -22,6 +26,7 @@ on:
     - cron: "0 23 * * *" # UTC+8 的 7 点执行，修改时注意时区
   watch:
     types: started
+  workflow_dispatch:
 
 jobs:
   send:
@@ -55,7 +60,15 @@ jobs:
 
 ## 配置
 
-本项目所有的配置都采用 `Actions Secrets` 的方式来配置，以下是配置说明
+![image](https://cdn.jsdelivr.net/gh/CaoMeiYouRen/image-hosting-01@master/images/20210304232805.png)
+
+>   此处依旧借用了 `BiliExp` 的图片，注意下 `Name` 和 `Value` 别填成上面的内容就行了，按照下面列表的说明填写
+>
+>   在`Settings`-->`Secrets`里添加的参数，`Name`必须为下列的参数名称之一，`Value`则填写对应获取的值
+
+本项目所有的配置都采用 `Actions Secrets` 的方式来配置，以下是配置说明。
+
+没有配置的推送方式不会执行推送的。
 
 | secrets                 | 说明                                                         |
 | ----------------------- | ------------------------------------------------------------ |
@@ -77,4 +90,3 @@ jobs:
 | PUSH_PLUS_TOKEN                   | pushplus 推送加开放平台。官方文档：http://pushplus.hxtrip.com/doc/ |
 | PUSH_PLUS_TEMPLATE_TYPE | 发送消息模板，默认为 html |
 | I_GOT_KEY               | iGot 推送，官方文档：https://wahao.github.io/Bark-MP-helper |
-
