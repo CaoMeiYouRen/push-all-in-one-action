@@ -2,10 +2,11 @@
   "name": "push-all-in-one-action",
   "version": "0.1.0",
   "private": true,
-  "description": "基于 push-all-in-one 的 action",
+  "description": "基于 push-all-in-one 的定时推送 action",
   "main": "dist/index.js",
   "scripts": {
     "prebuild": "rimraf dist",
+    "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
     "build": "cross-env NODE_ENV=production rollup -c",
     "lint": "cross-env NODE_ENV=production eslint src __tests__ *.js --fix --ext .ts,.js",
     "format": "npm run lint",
@@ -20,15 +21,30 @@
     "url": "git+https://github.com/CaoMeiYouRen/push-all-in-one-action.git"
   },
   "keywords": [
+    "schedule",
+    "notice",
     "actions",
     "node",
-    "setup"
+    "push",
+    "server-chan",
+    "serverchan",
+    "server-chan-turbo",
+    "CoolPush",
+    "email",
+    "dingtalk",
+    "weixin",
+    "wechat",
+    "pushplus",
+    "push+",
+    "iGot"
   ],
   "author": "CaoMeiYouRen",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "push-all-in-one": "^1.3.1"
+    "axios": "^0.21.1",
+    "colors": "^1.4.0",
+    "push-all-in-one": "^1.3.3"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.2",

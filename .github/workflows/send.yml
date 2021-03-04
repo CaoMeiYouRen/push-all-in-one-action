@@ -1,0 +1,37 @@
+name: "Send"
+
+on:
+  schedule:
+    - cron: "0 23 * * *" # UTC+8 的 7 点执行，修改时注意时区
+  watch:
+    types: started
+  workflow_dispatch:
+
+jobs:
+  send:
+    name: "Push All In One"
+    runs-on: ubuntu-latest
+    if: github.repository != 'CaoMeiYouRen/push-all-in-one-action'
+    steps:
+      - uses: actions/checkout@v2
+      - name: "执行 Push All In One"
+        uses: ./
+        env:
+          SEND_TITLE: ${{secrets.SEND_TITLE}}
+          SEND_DESP: ${{secrets.SEND_DESP}}
+          SCTKEY: ${{secrets.SCTKEY}}
+          COOL_PUSH_SKEY: ${{secrets.COOL_PUSH_SKEY}}
+          COOL_PUSH_TYPE: ${{secrets.COOL_PUSH_TYPE}}
+          BER_KEY: ${{secrets.BER_KEY}}
+          EMAIL_ADDRESS: ${{secrets.EMAIL_ADDRESS}}
+          DINGTALK_ACCESS_TOKEN: ${{secrets.DINGTALK_ACCESS_TOKEN}}
+          DINGTALK_SECRET: ${{secrets.DINGTALK_SECRET}}
+          WX_ROBOT_KEY: ${{secrets.WX_ROBOT_KEY}}
+          WX_ROBOT_MSG_TYPE: ${{secrets.WX_ROBOT_MSG_TYPE}}
+          WX_APP_CORPID: ${{secrets.WX_APP_CORPID}}
+          WX_APP_AGENTID: ${{secrets.WX_APP_AGENTID}}
+          WX_APP_SECRET: ${{secrets.WX_APP_SECRET}}
+          WX_APP_USERID: ${{secrets.WX_APP_USERID}}
+          PUSH_PLUS_TOKEN: ${{secrets.PUSH_PLUS_TOKEN}}
+          PUSH_PLUS_TEMPLATE_TYPE: ${{secrets.PUSH_PLUS_TEMPLATE_TYPE}}
+          I_GOT_KEY: ${{secrets.I_GOT_KEY}}
