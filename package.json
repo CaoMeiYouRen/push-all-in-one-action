@@ -1,6 +1,6 @@
 {
   "name": "push-all-in-one-action",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "基于 push-all-in-one 的定时推送 action",
   "main": "dist/index.js",

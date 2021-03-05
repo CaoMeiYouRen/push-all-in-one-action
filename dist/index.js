@@ -12761,10 +12761,10 @@ const PUSH_PLUS_TEMPLATE_TYPE = (env.PUSH_PLUS_TEMPLATE_TYPE || 'html');
 const I_GOT_KEY = env.I_GOT_KEY || '';
 
 function info(text) {
-    console.info(lib.cyan(text));
+    core$2.info(lib.cyan(text));
 }
 function warn(text) {
-    console.warn(lib.yellow(text));
+    core$2.warning(lib.yellow(text));
 }
 
 async function runPushAllInOne() {
@@ -12777,11 +12777,17 @@ async function runPushAllInOne() {
         pushs.push(serverChanTurbo.send(title, desp));
         info('Server酱·Turbo 已加入推送队列');
     }
+    else {
+        info('未配置 Server酱·Turbo，已跳过');
+    }
     if (COOL_PUSH_SKEY) {
         // 酷推。官方文档：https://cp.xuthus.cc/
         const coolPush = new CoolPush(COOL_PUSH_SKEY);
         pushs.push(coolPush.send(`${title}\n${desp}`, COOL_PUSH_TYPE));
         info('Cool Push 已加入推送队列');
+    }
+    else {
+        info('未配置 Cool Push，已跳过');
     }
     if (EMAIL_ADDRESS) {
         // BER分邮件系统。官方文档：http://doc.berfen.com/1239397
@@ -12795,11 +12801,17 @@ async function runPushAllInOne() {
         }));
         info('BER分邮件系统 已加入推送队列');
     }
+    else {
+        info('未配置 BER分邮件系统，已跳过');
+    }
     if (DINGTALK_ACCESS_TOKEN) {
         // 钉钉机器人。官方文档：https://developers.dingtalk.com/document/app/custom-robot-access
         const dingtalk = new Dingtalk(DINGTALK_ACCESS_TOKEN, DINGTALK_SECRET);
         pushs.push(dingtalk.send(title, desp));
         info('钉钉机器人 已加入推送队列');
+    }
+    else {
+        info('未配置 钉钉机器人，已跳过');
     }
     if (WX_ROBOT_KEY) {
         // 企业微信群机器人。官方文档：https://work.weixin.qq.com/help?person_id=1&doc_id=13376
@@ -12807,6 +12819,9 @@ async function runPushAllInOne() {
         const wechatRobot = new WechatRobot(WX_ROBOT_KEY);
         pushs.push(wechatRobot.send(`${title}\n${desp}`, WX_ROBOT_MSG_TYPE));
         info('企业微信群机器人 已加入推送队列');
+    }
+    else {
+        info('未配置 企业微信群机器人，已跳过');
     }
     if (WX_APP_CORPID && WX_APP_AGENTID && WX_APP_SECRET) {
         // 企业微信应用推送，官方文档：https://work.weixin.qq.com/api/doc/90000/90135/90664
@@ -12819,17 +12834,26 @@ async function runPushAllInOne() {
         pushs.push(wechatApp.send(`${title}\n${desp}`));
         info('企业微信应用推送 已加入推送队列');
     }
+    else {
+        info('未配置 企业微信应用推送，已跳过');
+    }
     if (PUSH_PLUS_TOKEN) {
         // pushplus 推送，官方文档：http://pushplus.hxtrip.com/doc/
         const pushplus = new PushPlus(PUSH_PLUS_TOKEN);
         pushs.push(pushplus.send(title, desp, PUSH_PLUS_TEMPLATE_TYPE));
         info('pushplus推送 已加入推送队列');
     }
+    else {
+        info('未配置 pushplus推送，已跳过');
+    }
     if (I_GOT_KEY) {
         // iGot 推送，官方文档：https://wahao.github.io/Bark-MP-helper
         const iGot = new IGot(I_GOT_KEY);
         pushs.push(iGot.send(title, desp));
         info('iGot推送 已加入推送队列');
+    }
+    else {
+        info('未配置 iGot推送，已跳过');
     }
     return Promise.allSettled(pushs);
 }
@@ -12843,7 +12867,7 @@ async function run() {
         }
         const success = results.filter((e) => e.status === 'fulfilled');
         const fail = results.filter((e) => e.status === 'rejected');
-        info(`本次推送成功 ${success.length} 个，失败 ${fail.length} 个`);
+        info(`本次共推送 ${results.length} 个，成功 ${success.length} 个，失败 ${fail.length} 个`);
     }
     catch (error) {
         core$2.setFailed(error.message);
