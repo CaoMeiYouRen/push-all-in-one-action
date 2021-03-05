@@ -1,13 +1,14 @@
 import colors from 'colors'
+import core from '@actions/core'
 
 export function info(text: any): void {
-    console.info(colors.cyan(text))
+    core.info(colors.cyan(text))
 }
 
 export function warn(text: any): void {
-    console.warn(colors.yellow(text))
+    core.warning(colors.yellow(text))
 }
 
 export function error(text: any): void {
-    console.error(colors.red(text))
+    core.error(colors.red(text))
 }

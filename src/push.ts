@@ -5,7 +5,7 @@ import {
     WX_ROBOT_KEY, WX_APP_CORPID, WX_APP_AGENTID, WX_APP_SECRET, WX_APP_USERID, PUSH_PLUS_TOKEN, I_GOT_KEY, PUSH_PLUS_TEMPLATE_TYPE,
     WX_ROBOT_MSG_TYPE,
 } from './env'
-import { info, warn } from './help'
+import { info } from './help'
 
 export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosResponse<any>>[]> {
     const pushs: Promise<AxiosResponse<any>>[] = []
@@ -16,6 +16,8 @@ export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosRespo
         const serverChanTurbo = new ServerChanTurbo(SCTKEY)
         pushs.push(serverChanTurbo.send(title, desp))
         info('Server酱·Turbo 已加入推送队列')
+    } else {
+        info('未配置 Server酱·Turbo，已跳过')
     }
 
     if (COOL_PUSH_SKEY) {
@@ -23,6 +25,8 @@ export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosRespo
         const coolPush = new CoolPush(COOL_PUSH_SKEY)
         pushs.push(coolPush.send(`${title}\n${desp}`, COOL_PUSH_TYPE))
         info('Cool Push 已加入推送队列')
+    } else {
+        info('未配置 Cool Push，已跳过')
     }
 
     if (EMAIL_ADDRESS) {
@@ -36,6 +40,8 @@ export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosRespo
             address: EMAIL_ADDRESS,
         }))
         info('BER分邮件系统 已加入推送队列')
+    } else {
+        info('未配置 BER分邮件系统，已跳过')
     }
 
     if (DINGTALK_ACCESS_TOKEN) {
@@ -43,6 +49,8 @@ export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosRespo
         const dingtalk = new Dingtalk(DINGTALK_ACCESS_TOKEN, DINGTALK_SECRET)
         pushs.push(dingtalk.send(title, desp))
         info('钉钉机器人 已加入推送队列')
+    } else {
+        info('未配置 钉钉机器人，已跳过')
     }
 
     if (WX_ROBOT_KEY) {
@@ -51,6 +59,8 @@ export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosRespo
         const wechatRobot = new WechatRobot(WX_ROBOT_KEY)
         pushs.push(wechatRobot.send(`${title}\n${desp}`, WX_ROBOT_MSG_TYPE))
         info('企业微信群机器人 已加入推送队列')
+    } else {
+        info('未配置 企业微信群机器人，已跳过')
     }
 
     if (WX_APP_CORPID && WX_APP_AGENTID && WX_APP_SECRET) {
@@ -63,6 +73,8 @@ export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosRespo
         })
         pushs.push(wechatApp.send(`${title}\n${desp}`))
         info('企业微信应用推送 已加入推送队列')
+    } else {
+        info('未配置 企业微信应用推送，已跳过')
     }
 
     if (PUSH_PLUS_TOKEN) {
@@ -70,6 +82,8 @@ export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosRespo
         const pushplus = new PushPlus(PUSH_PLUS_TOKEN)
         pushs.push(pushplus.send(title, desp, PUSH_PLUS_TEMPLATE_TYPE))
         info('pushplus推送 已加入推送队列')
+    } else {
+        info('未配置 pushplus推送，已跳过')
     }
 
     if (I_GOT_KEY) {
@@ -77,6 +91,8 @@ export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosRespo
         const iGot = new IGot(I_GOT_KEY)
         pushs.push(iGot.send(title, desp))
         info('iGot推送 已加入推送队列')
+    } else {
+        info('未配置 iGot推送，已跳过')
     }
 
     return Promise.allSettled(pushs)

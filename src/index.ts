@@ -10,7 +10,7 @@ async function run(): Promise<void> {
         }
         const success = results.filter((e) => e.status === 'fulfilled')
         const fail = results.filter((e) => e.status === 'rejected')
-        info(`本次推送成功 ${success.length} 个，失败 ${fail.length} 个`)
+        info(`本次共推送 ${results.length} 个，成功 ${success.length} 个，失败 ${fail.length} 个`)
     } catch (error) {
         core.setFailed(error.message)
     }
