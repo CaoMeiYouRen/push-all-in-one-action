@@ -1,16 +1,12 @@
 import core from '@actions/core'
 import { runPushAllInOne } from './push'
-import { info, warn } from './help'
+import { SEND_TITLE, SEND_DESP } from './env'
+
 async function run(): Promise<void> {
     try {
-        const results = await runPushAllInOne()
-        if (results.length === 0) {
-            warn('未配置任何推送，请检查推送配置的环境变量！')
-            return
-        }
-        const success = results.filter((e) => e.status === 'fulfilled')
-        const fail = results.filter((e) => e.status === 'rejected')
-        info(`本次共推送 ${results.length} 个，成功 ${success.length} 个，失败 ${fail.length} 个`)
+        const title = SEND_TITLE
+        const desp = SEND_DESP
+        await runPushAllInOne(title, desp)
     } catch (error) {
         core.setFailed(error.message)
     }

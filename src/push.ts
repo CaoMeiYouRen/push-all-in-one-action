@@ -1,16 +1,14 @@
 import { AxiosResponse } from 'axios'
 import { ServerChanTurbo, CoolPush, Dingtalk, Email, WechatRobot, WechatApp, PushPlus, IGot } from 'push-all-in-one'
 import {
-    SEND_TITLE, SEND_DESP, SCTKEY, COOL_PUSH_SKEY, COOL_PUSH_TYPE, BER_KEY, EMAIL_ADDRESS, DINGTALK_ACCESS_TOKEN, DINGTALK_SECRET,
+    SCTKEY, COOL_PUSH_SKEY, COOL_PUSH_TYPE, BER_KEY, EMAIL_ADDRESS, DINGTALK_ACCESS_TOKEN, DINGTALK_SECRET,
     WX_ROBOT_KEY, WX_APP_CORPID, WX_APP_AGENTID, WX_APP_SECRET, WX_APP_USERID, PUSH_PLUS_TOKEN, I_GOT_KEY, PUSH_PLUS_TEMPLATE_TYPE,
     WX_ROBOT_MSG_TYPE,
 } from './env'
-import { info } from './help'
+import { info, warn } from './help'
 
-export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosResponse<any>>[]> {
+export async function runPushAllInOne(title: string, desp?: string): Promise<PromiseSettledResult<AxiosResponse<any>>[]> {
     const pushs: Promise<AxiosResponse<any>>[] = []
-    const title = SEND_TITLE
-    const desp = SEND_DESP
     if (SCTKEY) {
         // Server酱。官方文档：https://sct.ftqq.com/
         const serverChanTurbo = new ServerChanTurbo(SCTKEY)
@@ -94,6 +92,16 @@ export async function runPushAllInOne(): Promise<PromiseSettledResult<AxiosRespo
     } else {
         info('未配置 iGot推送，已跳过')
     }
+    if (pushs.length === 0) {
+        warn('未配置任何推送，请检查推送配置的环境变量！')
+        return []
+    }
 
-    return Promise.allSettled(pushs)
+    const results = await Promise.allSettled(pushs)
+    const success = results.filter((e) => e.status === 'fulfilled')
+    const fail = results.filter((e) => e.status === 'rejected')
+
+    info(`本次共推送 ${results.length} 个，成功 ${success.length} 个，失败 ${fail.length} 个`)
+
+    return results
 }
