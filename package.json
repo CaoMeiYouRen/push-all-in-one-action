@@ -42,7 +42,7 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "axios": "^0.21.1",
+    "axios": "^0.22.0",
     "colors": "^1.4.0",
     "push-all-in-one": "^1.3.4"
   },
