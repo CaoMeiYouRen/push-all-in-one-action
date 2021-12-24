@@ -1,5 +1,16 @@
 # push-all-in-one-action
 
+## [1.0.4](https://github.com/CaoMeiYouRen/push-all-in-one-action/compare/v1.0.3...v1.0.4) (2021-12-24)
+
+
+### 🐛 Bug 修复
+
+* 修改 CI 配置 ([91a49ee](https://github.com/CaoMeiYouRen/push-all-in-one-action/commit/91a49ee))
+* 更新 依赖 ([cb75c22](https://github.com/CaoMeiYouRen/push-all-in-one-action/commit/cb75c22))
+
+
+* Merge branch 'master' of github.com:CaoMeiYouRen/push-all-in-one-action ([4778407](https://github.com/CaoMeiYouRen/push-all-in-one-action/commit/4778407))
+
 ## [1.0.3](https://github.com/CaoMeiYouRen/push-all-in-one-action/compare/v1.0.2...v1.0.3) (2021-03-20)
 
 
