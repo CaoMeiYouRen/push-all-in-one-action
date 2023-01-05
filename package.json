@@ -44,7 +44,7 @@
     "@actions/core": "^1.2.6",
     "axios": "^1.0.0",
     "colors": "^1.4.0",
-    "push-all-in-one": "^2.0.0"
+    "push-all-in-one": "^3.0.1"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^4.0.0",
