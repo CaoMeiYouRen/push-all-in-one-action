@@ -47,7 +47,7 @@
     "push-all-in-one": "^2.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-alias": "^4.0.0",
+    "@rollup/plugin-alias": "^5.0.0",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
